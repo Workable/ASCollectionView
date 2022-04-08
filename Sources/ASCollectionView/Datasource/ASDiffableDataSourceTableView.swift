@@ -67,7 +67,7 @@ class ASDiffableDataSourceTableView<SectionID: Hashable>: ASDiffableDataSource<S
 			self?.canRefreshSizes = true
 			completion?()
 		}
-		tableView.reload(using: changeset, with: shouldDisableAnimation ? .none : .automatic)
+		tableView.reload(using: changeset, with: shouldDisableAnimation ? .none : defaultRowAnimation)
 		{ newSections in
 			self.currentSnapshot = .init(sections: newSections)
 		}
