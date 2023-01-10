@@ -15,7 +15,8 @@ public struct ASTableView<SectionID: Hashable>: UIViewControllerRepresentable, C
 
 	public typealias OnScrollCallback = ((_ contentOffset: CGPoint, _ contentSize: CGSize) -> Void)
 	public typealias OnReachedBottomCallback = (() -> Void)
-
+    public typealias OnScrollViewDidEndDragging = (() -> Void)
+    
 	// MARK: Key variables
 
 	public var sections: [Section]
@@ -26,6 +27,7 @@ public struct ASTableView<SectionID: Hashable>: UIViewControllerRepresentable, C
 
 	internal var onScrollCallback: OnScrollCallback?
 	internal var onReachedBottomCallback: OnReachedBottomCallback?
+    internal var onScrollViewDidEndDragging: OnScrollViewDidEndDragging?
 
 	internal var scrollPositionSetter: Binding<ASTableViewScrollPosition?>?
 
@@ -796,6 +798,10 @@ public struct ASTableView<SectionID: Hashable>: UIViewControllerRepresentable, C
 			checkIfReachedBottom(scrollView)
 		}
 
+        public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+            parent.onScrollViewDidEndDragging?()
+        }
+        
 		var hasAlreadyReachedBottom: Bool = false
 		func checkIfReachedBottom(_ scrollView: UIScrollView)
 		{
