@@ -88,6 +88,12 @@ public extension ASTableView
 		this.animateOnDataRefresh = animate
 		return this
 	}
+    
+    func defaultRowAnimation(_ defaultRowAnimation: UITableView.RowAnimation) -> Self {
+        var this = self
+        this.rowAnimation = defaultRowAnimation
+        return this
+    }
 
 	/// Set a binding that will scroll the ASTableView when set. It will always return nil once the scroll is applied (use onScroll to read scroll position)
 	func scrollPositionSetter(_ binding: Binding<ASTableViewScrollPosition?>) -> Self

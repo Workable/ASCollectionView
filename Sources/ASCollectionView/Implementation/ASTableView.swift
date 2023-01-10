@@ -42,6 +42,7 @@ public struct ASTableView<SectionID: Hashable>: UIViewControllerRepresentable, C
 
 	internal var alwaysBounce: Bool = false
 	internal var animateOnDataRefresh: Bool = true
+    var rowAnimation: UITableView.RowAnimation = .automatic
 
 	internal var dodgeKeyboard: Bool = true
 
@@ -75,7 +76,6 @@ public struct ASTableView<SectionID: Hashable>: UIViewControllerRepresentable, C
 		context.coordinator.updateContent(tableViewController.tableView, transaction: context.transaction)
 		context.coordinator.configureRefreshControl(for: tableViewController.tableView)
 		context.coordinator.setupKeyboardObservers()
-        context.coordinator.applyScrollPosition(animated: true)
 #if DEBUG
 		debugOnly_checkHasUniqueSections()
 #endif
@@ -234,6 +234,7 @@ public struct ASTableView<SectionID: Hashable>: UIViewControllerRepresentable, C
 			dataSource?.onMove = { [weak self] from, to in
 				self?.onMoveAction(from: from, to: to) ?? false
 			}
+            dataSource?.defaultRowAnimation = parent.rowAnimation
 		}
 
 		func populateDataSource(animated: Bool = true, transaction: Transaction? = nil)
