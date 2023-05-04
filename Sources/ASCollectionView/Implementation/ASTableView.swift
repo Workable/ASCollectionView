@@ -170,7 +170,8 @@ public struct ASTableView<SectionID: Hashable>: UIViewControllerRepresentable, C
 
 		func updateTableViewContentInsets(_ tableView: UITableView)
 		{
-			assignIfChanged(tableView, \.contentInset, newValue: adaptiveContentInsets)
+            // Conficts with Expandable header
+//			assignIfChanged(tableView, \.contentInset, newValue: adaptiveContentInsets)
 		}
 
 		func isIndexPathSelected(_ indexPath: IndexPath) -> Bool
